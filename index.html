@@ -44,9 +44,11 @@
 
       let x = 0
       let y = 0
-      for (y = 0; y < 200; y += 30) {
-        x = Math.random() * 350
-        initialState.bricks.push({"x": x, "y": y})
+      for (y = 0; y <= 120; y += 30) {
+        for (x = 0; x <= 350; x += 50) {
+          //x = Math.random() * 350
+          initialState.bricks.push({"x": x, "y": y})
+        }
       }
 
       return initialState
