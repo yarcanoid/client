@@ -83,7 +83,8 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
       newY > brick.y - 10 &&
       newY < brick.y + 20 + 10) {
       console.log("произошло столкновение с бриком")
-      newAngle = 2 * Math.PI * Math.random()
+      
+      newAngle = (0.17 + Math.random() * 1.22) * Math.ceil(Math.random() * 3)
     }
     else {
       newBricks.push(brick)
