@@ -23,9 +23,22 @@ describe('get new coordinates', () => {
     //console.log(getNewCoordinates(200, 2, 1.59))
   })
 
-*/
 
   it('летит вправо вниз + столкновение справа', () => {
     expect(getNewCoordinates(398, 200, 6.1)).to.deep.equal({newX: 392.1673156155742, newY: 201.82162504272097, newAngle: 3.3247779607693797})
   })
+
+
+  it('летит влево вниз + столкновение снизу', () => {
+    expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 197.8920420056922, newY: 392.22469882334906, newAngle: 1.7831853071795862})
+  })
+
+*/
+  it('летит влево вниз + столкновение слева', () => {
+    //expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 197.8920420056922, newY: 392.22469882334906, newAngle: 1.7831853071795862})
+    console.log(getNewCoordinates(2, 200, 3.5))
+  })
+
+
+
 })

@@ -74,12 +74,23 @@ function getNewCoordinates(x, y, angle) {
 	if(newX < 0) {
 		console.log("произошло столкновение с левой границей области")
 		newX = Math.abs(newX)
-		newAngle = Math.PI - newAngle
+    if (newAngle < Math.PI) {
+      console.log(123123123)
+		  newAngle = Math.PI - newAngle
+    }
+    else {
+      newAngle = 3 * Math.PI - newAngle
+    }
 	}
 	if(newY > BOARD_HEIGHT) {
 		console.log("произошло столкновение с нижней границей области")
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
-		newAngle = Math.PI - newAngle
+    if (newAngle < Math.PI) {
+		  newAngle = Math.PI - newAngle
+    }
+    else {
+      newAngle = 2 * Math.PI - newAngle
+    }
 	}
 	if(newY < 0) {
 		console.log("произошло столкновение с верхней границей области")
