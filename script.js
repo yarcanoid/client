@@ -75,12 +75,15 @@ window.addEventListener('keydown', (e) => {
     move(-1);
 });
 
-function move (delta) {
-    let currentLeft = parseInt(playerDOM.style.left);
-    let newLeft = currentLeft + delta;
+// let audio = new AudioSample();
+// audio.shoot();
 
-    newLeft = Math.max(newLeft, 0);
-    newLeft = Math.min(newLeft, 400 - parseInt(playerDOM.offsetWidth));
+function move(delta) {
+  let currentLeft = parseInt(playerDOM.style.left);
+  let newLeft = currentLeft + delta;
 
-    playerDOM.style.left = newLeft + 'px';
+  newLeft = Math.max(newLeft, 0);
+  newLeft = Math.min(newLeft, 400 - parseInt(playerDOM.offsetWidth));
+
+  playerDOM.style.left = newLeft + 'px';
 }
