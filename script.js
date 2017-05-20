@@ -11,6 +11,7 @@ class Interface {
         this._brickTemplate = this._bricksTemplate.content.querySelector('.brick');
         this._boomTemplate = this._bricksTemplate.content.querySelector('.boom');
         this._bricksContainer = document.querySelector('.bricks');
+        this._boomsContainer = document.querySelector('.booms');
 
         if (data) {
             this.render(data);
@@ -50,12 +51,12 @@ class Interface {
             boom.style.left = removedBrick[0].x + 'px';
             boom.style.top = removedBrick[0].y + 'px';
 
-            this._bricksContainer.appendChild(boom);
+            this._boomsContainer.appendChild(boom);
+            let audio = new AudioSample();
+            audio.shoot();
 
             setTimeout(() => {
-              if (document.body.contains(boom)) {
-                this._bricksContainer.removeChild(boom);
-              }
+              this._boomsContainer.removeChild(boom);
             }, 1000)
           }
         }
