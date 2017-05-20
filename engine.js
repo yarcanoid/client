@@ -33,41 +33,36 @@ function getNewCoordinates(x, y, angle) {
 	let newAngle = 0
 
 	if(x > 0 && x < BOARD_WIDTH) {
-		if(y > 0 && y < BOARD_HEIGHT) {
-			return
-		}
-		if(y == BOARD_HEIGHT) {
-			if(angle > 0 && angle < Math.PI / 2) {
-				console.log("летит вправо вверх")
-				newX = x + MOVE_LENGHT * Math.sin(angle)
-				newY = y - MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит влево вверх")
-				newX = x - MOVE_LENGHT * Math.sin(angle)
-				newY = y - MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит влево вниз")
-				newX = x - MOVE_LENGHT * Math.sin(angle)
-				newY = y + MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит право вниз")
-				newX = x + MOVE_LENGHT * Math.sin(angle)
-				newY = y + MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-		}
+    if(angle > 0 && angle < Math.PI / 2) {
+      console.log("летит вправо вверх")
+      newX = x + MOVE_LENGHT * Math.sin(angle)
+      newY = y - MOVE_LENGHT * Math.cos(angle)
+      newAngle = angle
+    }
+    if(angle >= Math.PI / 2 && angle < Math.PI) {
+      console.log("летит влево вверх")
+      newX = x - MOVE_LENGHT * Math.sin(angle)
+      newY = y - MOVE_LENGHT * Math.cos(angle)
+      newAngle = angle
+    }
+    if(angle >= Math.PI / 2 && angle < Math.PI) {
+      console.log("летит влево вниз")
+      newX = x - MOVE_LENGHT * Math.sin(angle)
+      newY = y + MOVE_LENGHT * Math.cos(angle)
+      newAngle = angle
+    }
+    if(angle >= Math.PI / 2 && angle < Math.PI) {
+      console.log("летит право вниз")
+      newX = x + MOVE_LENGHT * Math.sin(angle)
+      newY = y + MOVE_LENGHT * Math.cos(angle)
+      newAngle = angle
+    }
 	}
 	
 	if(newX > BOARD_WIDTH) {
 		console.log("произошло столкновение с правой границей области")
 		newX = BOARD_WIDTH - (newX - BOARD_WIDTH)
-		newAngle = Math.PI - newAgle
+		newAngle = Math.PI - newAngle
 	}
 	if(newX < 0) {
 		console.log("произошло столкновение с левой границей области")
