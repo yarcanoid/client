@@ -23,5 +23,41 @@
     <script src="./shared.js"></script>
     <script src="./audiosample.js"></script>
     <script src="./script.js"></script>
+    <script src="./engine.js"></script>
+    <script>
+			// изначальное состояние игры
+			 let initialState = {
+					 "player":
+						 {
+							 "x": 175
+						 },
+					 "ball":
+						 {
+							 "x": 200,
+							 "y": 400,
+							 "angle": 0.54
+						 },
+					 "bricks": [
+						 {
+							 "x": 175,
+							 "y": 50
+						 }
+					 ]
+				 }
+
+			window.addEventListener('DOMContentLoaded', loop)
+			let currentState = initialState
+			
+      function boardRefresh() {
+				render(currentState)
+        currentState = tick(currentState, parseInt(document.querySelector('.player').style.left))
+      }
+
+      function loop() {
+        window.requestAnimationFrame(loop)
+        boardRefresh()
+      }
+
+    </script>
   </body>
 </html>
