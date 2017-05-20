@@ -3,42 +3,30 @@ var expect = require('chai').expect;
 var getNewCoordinates = require("./../engine.js")
 
 describe('get new coordinates', () => {
-  /*
   it('летит вправо вверх', () => {
-    expect(getNewCoordinates(200, 400, 0.54)).to.deep.equal({newX: 205.14135991653114, newY: 391.42291318636177, newAngle: 0.54})
-    expect(getNewCoordinates(205.14135991653114, 391.42291318636177, 0.54)).to.deep.equal({newX: 210.2827198330623, newY: 382.84582637272354, newAngle: 0.54})
-
-    //console.log(getNewCoordinates(205.14135991653114, 391.42291318636177, 0.54))
+    expect(getNewCoordinates(200, 400, 0.54)).to.deep.equal({newX: 204.28854340681912, newY: 397.42932004173446, newAngle: 0.54, newBricks: []})
   })
   
   it('летит вправо вверх + столкновение справа', () => {
-    expect(getNewCoordinates(398, 200, 0.54)).to.deep.equal({newX: 396.85864008346886, newY: 191.42291318636177, newAngle: 2.601592653589793})
-    expect(getNewCoordinates(396.85864008346886, 191.42291318636177, 2.601592653589793)).to.deep.equal({newX: 391.7172801669377, newY: 182.84582637272354, newAngle: 2.601592653589793})
+    expect(getNewCoordinates(398, 200, 0.54)).to.deep.equal({newX: 397.71145659318086, newY: 197.42932004173443, newAngle: 2.601592653589793, newBricks: []})
 
-    //console.log(getNewCoordinates(396.85864008346886, 191.42291318636177, 2.601592653589793))
   })
+
   it('летит влево вверх + столкновение сверху', () => {
-    expect(getNewCoordinates(200, 2, 1.59)).to.deep.equal({newX: 199.80797507098308, newY: 7.998156151342908, newAngle: 4.693185307179586})
-    expect(getNewCoordinates(199.80797507098308, 7.998156151342908, 4.693185307179586)).to.deep.equal({newX: 199.61595014196615, newY: 17.996312302685816, newAngle: 4.693185307179586})
-    //console.log(getNewCoordinates(200, 2, 1.59))
+    expect(getNewCoordinates(200, 2, 1.59)).to.deep.equal({newX: 199.90398753549152, newY: 2.999078075671454, newAngle: 4.693185307179586, newBricks: []})
   })
 
 
   it('летит вправо вниз + столкновение справа', () => {
-    expect(getNewCoordinates(398, 200, 6.1)).to.deep.equal({newX: 392.1673156155742, newY: 201.82162504272097, newAngle: 3.3247779607693797})
+    expect(getNewCoordinates(398, 200, 6.1)).to.deep.equal({newX: 397.08365780778706, newY: 200.91081252136047, newAngle: 3.3247779607693797, newBricks: []})
   })
 
 
   it('летит влево вниз + столкновение снизу', () => {
-    expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 197.8920420056922, newY: 392.22469882334906, newAngle: 1.7831853071795862})
+    expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 198.9460210028461, newY: 397.11234941167453, newAngle: 1.7831853071795862, newBricks: []})
   })
 
-*/
   it('летит влево вниз + столкновение слева', () => {
-    //expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 197.8920420056922, newY: 392.22469882334906, newAngle: 1.7831853071795862})
-    console.log(getNewCoordinates(2, 200, 3.5))
+    expect(getNewCoordinates(200, 398, 4.5)).to.deep.equal({newX: 198.9460210028461, newY: 397.11234941167453, newAngle: 1.7831853071795862, newBricks: []})
   })
-
-
-
 })
