@@ -79,13 +79,13 @@ window.addEventListener(
         else if (e.gamma < -10)
           result = 'left';
       } else {
-        if (e.beta > 10)
+        if (Math.sign(window.orientation) * e.beta > 10)
           result = 'right';
-        else if (e.beta < -10)
+        else if (Math.sign(window.orientation) * e.beta < -10)
           result = 'left';
       }
 
 
-      document.querySelector('.orient-info').textContent = `${result} ${orientation} ${window.orientation}`;
+      document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
     }
 );
