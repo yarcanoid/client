@@ -55,3 +55,10 @@ function renderBricks(bricksData) {
 }
 
 document.addEventListener('DOMContentLoaded', start.bind(null, initial));
+
+window.addEventListener(
+    "deviceorientation",
+    function(e){
+      document.querySelector('.orient-info').textContent = `${e.alpha} ${e.beta} ${e.gamma}`;
+    }
+);
