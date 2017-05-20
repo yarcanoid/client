@@ -49,10 +49,10 @@ class Interface {
 
           if (removedBrick.length > 0) {
             let currentKill = Number(new Date());
-            if (this._bricksKills.length === 5 && (currentKill - this._bricksKills[0] < 10 * 1000 * 5)) {
+            if (this._bricksKills.length === 5 && (currentKill - this._bricksKills[0] < 1000 * 5)) {
                 this._bricksKills = [];
                 // Проиграть звук «multikill»
-                console.log('multi');
+                sound.multiKill();
             }
 
             this._bricksKills.push(currentKill);

@@ -67,8 +67,11 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
 			// let sound = new Sound();
 			sound.holyShit();
 
-      alert("Проиграл")
-      location.reload()
+			// alert('Проиграл')
+			loop = function () {}
+			setTimeout(location.reload.bind(location), 2000);
+
+      // location.reload()
     }
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
     if (newAngle < Math.PI) {
