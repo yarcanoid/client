@@ -60,6 +60,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
     if (newX < platformX - 10 || newX > platformX + PLATFORM_WIDTH + 10) {
       // не попали в платформу
       alert("Проиграл")
+      location.reload()
     }
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
     if (newAngle < Math.PI) {
@@ -84,7 +85,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
       newY < brick.y + 20 + 10) {
       console.log("произошло столкновение с бриком")
       
-      newAngle = (0.17 + Math.random() * 1.22) * Math.ceil(Math.random() * 3)
+      newAngle = (0.17 + Math.random() * 1.22) + (Math.PI / 2 * Math.floor(Math.random() * 4))
     }
     else {
       newBricks.push(brick)
