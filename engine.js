@@ -1,33 +1,10 @@
 const BOARD_WIDTH = 400
 const BOARD_HEIGHT = 400
 const MOVE_LENGHT = 10
+const PLATFORM_WIDTH = 100
 
-// изначальное состояние игры
-
-/*let initialState = {
-    "player":
-      {
-        "x": 175
-      },
-    "ball":
-      {
-        "x": 200,
-        "y": 400,
-        "angle": 0.54
-      },
-    "bricks": [
-      {
-        "x": 175,
-        "y": 50
-      }
-    ]
-  }
-
-// внутреннее состояние сцены (в начале игры равно изначальному)
-let innerState = initialState
-*/
 // возвращает новые координаты
-function getNewCoordinates(x, y, angle) {
+function getNewCoordinates(x, y, angle, platformX) {
 	let newX = 0
 	let newY = 0
 	let newAngle = 0
@@ -75,7 +52,6 @@ function getNewCoordinates(x, y, angle) {
 		console.log("произошло столкновение с левой границей области")
 		newX = Math.abs(newX)
     if (newAngle < Math.PI) {
-      console.log(123123123)
 		  newAngle = Math.PI - newAngle
     }
     else {
@@ -84,6 +60,10 @@ function getNewCoordinates(x, y, angle) {
 	}
 	if(newY > BOARD_HEIGHT) {
 		console.log("произошло столкновение с нижней границей области")
+    if (newX < platformX - 10 || newX > platformX + PLATFORM_WIDTH + 10) {
+      // не попали в платформу
+      alert("Проиграл")
+    }
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
     if (newAngle < Math.PI) {
 		  newAngle = Math.PI - newAngle
@@ -103,9 +83,8 @@ function getNewCoordinates(x, y, angle) {
 
 // пересчитывает состояние каждый тик
 function tick(currentState, playerPosition) {
-	console.log(currentState)
 	let newState = currentState;
-	let {newX, newY, newAngle} = getNewCoordinates(currentState.ball.x, currentState.ball.y, currentState.ball.angle)
+	let {newX, newY, newAngle} = getNewCoordinates(currentState.ball.x, currentState.ball.y, currentState.ball.angle, playerPosition)
 	newState.player.x = playerPosition
 	newState.ball.x = newX
 	newState.ball.y = newY
@@ -116,10 +95,6 @@ function tick(currentState, playerPosition) {
 function getResponse(innerState) {
   return innerState
 }
-
-//console.log(getResponse(innerState))
-//console.log(tick(initialState, 200))
-//console.log(getNewCoordinates(200, 400, 0.54))
 
 if (typeof module !== 'undefined' &&  typeof module.exports !== 'undefined') {
   module.exports = getNewCoordinates
