@@ -72,25 +72,16 @@ window.addEventListener(
 
       let result = '';
       if (orientation == 'Portrait') {
-        if (e.gamma > 10)
-          result = 'right';
-        else if (e.gamma < -10)
-          result = 'left';
+        result = e.gamma;
       } else {
-        if (Math.sign(window.orientation) * e.beta > 10)
-          result = 'right';
-        else if (Math.sign(window.orientation) * e.beta < -10)
-          result = 'left';
+        result = Math.sign(window.orientation) * e.beta;
       }
 
-      if (result == 'right') {
-        move(1);
-      } else if (result == 'left')  {
-        move(-1);
+      if (Math.abs(result) > 10) {
+        move(Math.floor(result * 3));
       }
 
-
-      document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
+      document.querySelector('.orient-info').textContent = `v7 ${result} ${orientation}`;
     }
 );
 
