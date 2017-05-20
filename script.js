@@ -86,10 +86,6 @@ window.addEventListener(
       }
 
 
-      document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
+      document.querySelector('.orient-info').textContent = `${result} ${orientation} ${window.orientation}`;
     }
 );
-
-window.addEventListener("orientationchange", function() {
-    alert("the orientation of the device is now " + screen.orientation.angle);
-});
