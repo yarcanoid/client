@@ -5,6 +5,11 @@ const PLATFORM_WIDTH = 100
 
 // возвращает новые координаты
 function getNewCoordinates(x, y, angle, platformX, bricks = []) {
+  if(bricks.length == 0) {
+    alert("Выиграл")
+    location.reload()
+  }
+
 	let newX = 0
 	let newY = 0
 	let newAngle = 0
@@ -91,11 +96,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
       newBricks.push(brick)
     }
   })
-  if(newBricks.length == 0) {
-    alert("Выиграл")
-    location.reload()
-  }
-	return {newX, newY, newAngle, newBricks}
+  return {newX, newY, newAngle, newBricks}
 }
 
 // пересчитывает состояние каждый тик
