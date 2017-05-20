@@ -91,6 +91,10 @@ class Interface {
         this._playerPosition = newLeft;
         this._player.style.left = newLeft + 'px';
     }
+
+    getPlayerPosition () {
+        return this._playerPosition;
+    }
 }
 // let audio = new AudioSample();
 // audio.shoot();

@@ -19,6 +19,7 @@
     </div>
 </div>
 <div class="orient-info">
+    v10
 </div>
 <script src="./shared.js"></script>
 <script src="./audiosample.js"></script>
@@ -52,7 +53,7 @@
     }
 
     function loop() {
-        currentState = tick(currentState, parseInt(document.querySelector('.player').style.left))
+        currentState = tick(currentState, interface.getPlayerPosition())
         interface.render(currentState);
         window.requestAnimationFrame(loop);
     }
