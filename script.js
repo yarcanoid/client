@@ -63,10 +63,12 @@ window.addEventListener(
       // e.beta - угол наклона вперёд назад
       // e.gamma - влево вправо
 
-      let orientationAngle = window.orientation || window.screen.orientation.angle;
+
+
+      let orientationAngle = window.orientation;
 
       let orientation = 'Portrait';
-      if (Math.abs(orientationAngle) === 90) {
+      if (typeof window.orientation != "undefined" && Math.abs(window.orientation) === 90) {
         orientation = 'Landscape';
       }
 
