@@ -7,6 +7,7 @@
 <body>
 <template class="bricks-template">
     <div class="brick brick-style-1"></div>
+    <div class="boom"></div>
 </template>
 <div class="field">
     <div class="bricks">
@@ -52,7 +53,7 @@
       return initialState
     }
     let initialState = generateState()
-   
+
     window.addEventListener('DOMContentLoaded', start)
     let currentState = initialState;
     let interface;

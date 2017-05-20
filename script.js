@@ -9,6 +9,7 @@ class Interface {
 
         this._bricksTemplate = document.querySelector('.bricks-template');
         this._brickTemplate = this._bricksTemplate.content.querySelector('.brick');
+        this._boomTemplate = this._bricksTemplate.content.querySelector('.boom');
         this._bricksContainer = document.querySelector('.bricks');
 
         if (data) {
@@ -33,17 +34,42 @@ class Interface {
             return;
         }
 
-        this._bricksContainer.textContent = '';
+        // if (!this._bricks) {
+
+        if (this._bricks) {
+          let removedBrick = this._bricks.filter(brick => {
+            return bricks.filter(newBrick => {
+              return newBrick.x === brick.x && newBrick.y === brick.y
+            }).length === 0;
+          })
+
+          this._bricksContainer.textContent = '';
+
+          if (removedBrick.length > 0) {
+            let boom = document.importNode(this._boomTemplate, true);
+            boom.style.left = removedBrick[0].x + 'px';
+            boom.style.top = removedBrick[0].y + 'px';
+
+            this._bricksContainer.appendChild(boom);
+
+            setTimeout(() => {
+              if (document.body.contains(boom)) {
+                this._bricksContainer.removeChild(boom);
+              }
+            }, 1000)
+          }
+        }
 
         bricks.forEach(brick => {
-            let node = document.importNode(this._brickTemplate, true);
-            node.style.left = brick.x + 'px';
-            node.style.top = brick.y + 'px';
+          let node = document.importNode(this._brickTemplate, true);
+          node.style.left = brick.x + 'px';
+          node.style.top = brick.y + 'px';
 
-            this._bricksContainer.appendChild(node);
+          this._bricksContainer.appendChild(node);
         });
 
         this._bricks = bricks;
+
     }
 
     _initEvents() {

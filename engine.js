@@ -38,7 +38,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
     newY = y - MOVE_LENGHT * Math.sin(angle)
     newAngle = angle
   }
-	
+
   // обрабатываем столкновения с границами игрового поля
 	if(newX > BOARD_WIDTH) {
 		console.log("произошло столкновение с правой границей области")
@@ -89,7 +89,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
       newY > brick.y - 10 &&
       newY < brick.y + 20 + 10) {
       console.log("произошло столкновение с бриком")
-      
+
       newAngle = (0.17 + Math.random() * 1.22) + Math.PI / 2 * Math.floor(Math.random() * 4)
     }
     else {
@@ -119,4 +119,3 @@ function getResponse(innerState) {
 if (typeof module !== 'undefined' &&  typeof module.exports !== 'undefined') {
   module.exports = getNewCoordinates
 }
-

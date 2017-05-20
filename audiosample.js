@@ -72,8 +72,9 @@ function Envelope() {
 
 Envelope.prototype.addEventToQueue = function() {
   this.node.gain.linearRampToValueAtTime(0, context.currentTime);
-  this.node.gain.linearRampToValueAtTime(0.3, context.currentTime + 0.001);
-  this.node.gain.linearRampToValueAtTime(0, context.currentTime + 0.05);
+  this.node.gain.linearRampToValueAtTime(1, context.currentTime + 0.001);
+  this.node.gain.linearRampToValueAtTime(0.3, context.currentTime + 0.5);
+  this.node.gain.linearRampToValueAtTime(0, context.currentTime + 1.0);
 };
 
 Envelope.prototype.connect = function(dest) {
