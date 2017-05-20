@@ -29,6 +29,10 @@ class Interface {
     }
 
     _renderBricks(bricks) {
+        if (this._bricks && this._bricks.length === bricks.length) {
+            return;
+        }
+
         this._bricksTemplate.textContent = '';
 
         bricks.forEach(brick => {
@@ -37,7 +41,9 @@ class Interface {
             node.style.top = brick.y + 'px';
 
             this._bricksContainer.appendChild(node);
-        })
+        });
+
+        this._bricks = bricks;
     }
 
     _initEvents() {
@@ -84,6 +90,10 @@ class Interface {
 
         this._playerPosition = newLeft;
         this._player.style.left = newLeft + 'px';
+    }
+
+    getPlayerPosition () {
+        return this._playerPosition;
     }
 }
 // let audio = new AudioSample();

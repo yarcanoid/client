@@ -1,6 +1,12 @@
 body {
   width: 100vw;
   height: 100vh;
+  margin: 0px;
+
+  background: #0064c9; /* Old browsers */
+  background: -moz-linear-gradient(top, #0064c9 0%, #4484bf 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #0064c9 0%,#4484bf 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #0064c9 0%,#4484bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .field {
@@ -10,10 +16,10 @@ body {
   margin-right: auto;
   position: relative;
 
-  background: #0064c9; /* Old browsers */
-  background: -moz-linear-gradient(top, #0064c9 0%, #4484bf 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #0064c9 0%,#4484bf 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #0064c9 0%,#4484bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  border-top:4px dotted rgb(233,246,253);
+  border-right:4px dotted rgb(233,246,253);
+  border-left:4px dotted rgb(233,246,253);
+
 }
 
 .brick {
@@ -80,7 +86,7 @@ body {
   height: 20px;
   display: inline-block;
   border-left: black 2px solid;
-  margin-left: 28px;
+  margin-left: 78px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background: #f85032; /* Old browsers */
