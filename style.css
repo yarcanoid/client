@@ -111,9 +111,10 @@ body::before {
 }
 
 .boom {
-  position: relative;
+  position: absolute;
   width: 64px;
   height: 64px;
+  transform: translate(-7px, -22px);
   overflow: hidden;
 }
 .boom:after {
