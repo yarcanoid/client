@@ -59,6 +59,17 @@ document.addEventListener('DOMContentLoaded', start.bind(null, initial));
 window.addEventListener(
     "deviceorientation",
     function(e){
-      document.querySelector('.orient-info').textContent = `${e.alpha} ${e.beta} ${e.gamma}`;
+      // e.alpha угол поворота
+      // e.beta - угол наклона вперёд назад
+      // e.gamma - влево вправо
+      let result = '';
+      if (e.gamma > 20)
+        result = 'right';
+      else if (e.gamma < -20)
+        result = 'left';
+
+      document.querySelector('.orient-info').textContent = `${result}`;
+
+
     }
 );
