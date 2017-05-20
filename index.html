@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <title>YArcanoid</title>
     <link href="./style.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=0.8"> -->
 </head>
 <body>
 <template class="bricks-template">
@@ -27,6 +27,7 @@
 </div>
 <script src="./shared.js"></script>
 <script src="./audiosample.js"></script>
+<script src="./sound.js"></script>
 <script src="./script.js"></script>
 <script src="./engine.js"></script>
 <script>
@@ -61,6 +62,7 @@
     let currentState = initialState;
     let interface;
     function start() {
+        sound.prepareToFight();
         interface = new Interface(initialState);
         loop();
     }
@@ -70,6 +72,7 @@
         interface.render(currentState);
         window.requestAnimationFrame(loop);
     }
+
 </script>
 </body>
 </html>

@@ -64,8 +64,14 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
 		console.log("произошло столкновение с нижней границей области")
     if (newX < platformX - 10 || newX > platformX + PLATFORM_WIDTH + 10) {
       // не попали в платформу
-      alert("Проиграл")
-      location.reload()
+			// let sound = new Sound();
+			sound.holyShit();
+
+			// alert('Проиграл')
+			loop = function () {}
+			setTimeout(location.reload.bind(location), 2000);
+
+      // location.reload()
     }
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
     if (newAngle < Math.PI) {
