@@ -1,6 +1,9 @@
 var expect = require('chai').expect;
-
 var getNewCoordinates = require("./../engine.js")
+
+alert = function () {}
+location = {}
+location.reload = function () {}
 
 describe('get new coordinates', () => {
   it('летит вправо вверх', () => {
