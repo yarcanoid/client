@@ -4,8 +4,8 @@ function render (data) {
   renderBricks(bricks);
 
   playerDOM.style.left = player.x + "px";
-  ballDOM.style.left = ball.x + ballCenter.x + "px";
-  ballDOM.style.top = ball.y + ballCenter.y + "px";
+  ballDOM.style.left = ball.x - ballCenter.x + "px";
+  ballDOM.style.top = ball.y - ballCenter.y + "px";
 }
 
 let playerDOM;
