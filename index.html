@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YArcanoid</title>
+    <link href="./style.css" rel="stylesheet">
+</head>
+<body>
+<template class="bricks-template">
+    <div class="brick brick-style-1"></div>
+</template>
+<div class="field">
+    <div class="bricks">
+    </div>
+    <div class="player">
+
+    </div>
+    <div class="ball">
+
+    </div>
+</div>
+<div class="orient-info">
+</div>
+<script src="./shared.js"></script>
+<script src="./audiosample.js"></script>
+<script src="./script.js"></script>
+<script src="./engine.js"></script>
+<script>
+    // изначальное состояние игры
+    let initialState = {
+        "player": {
+            "x": 175
+        },
+        "ball": {
+            "x": 200,
+            "y": 400,
+            "angle": 0.54
+        },
+        "bricks": [
+            {
+                "x": 175,
+                "y": 50
+            }
+        ]
+    };
+
+    window.addEventListener('DOMContentLoaded', start);
+    let currentState = initialState;
+    let interface;
+    function start() {
+        interface = new Interface(initialState);
+        loop();
+    }
+
+    function loop() {
+        currentState = tick(currentState, parseInt(document.querySelector('.player').style.left))
+        interface.render(currentState);
+        window.requestAnimationFrame(loop);
+    }
+
+</script>
+</body>
+</html>
