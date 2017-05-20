@@ -32,57 +32,70 @@ function getNewCoordinates(x, y, angle) {
 	let newY = 0
 	let newAngle = 0
 
-	if(x > 0 && x < BOARD_WIDTH) {
-		if(y > 0 && y < BOARD_HEIGHT) {
-			return
-		}
-		if(y == BOARD_HEIGHT) {
-			if(angle > 0 && angle < Math.PI / 2) {
-				console.log("летит вправо вверх")
-				newX = x + MOVE_LENGHT * Math.sin(angle)
-				newY = y - MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит влево вверх")
-				newX = x - MOVE_LENGHT * Math.sin(angle)
-				newY = y - MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит влево вниз")
-				newX = x - MOVE_LENGHT * Math.sin(angle)
-				newY = y + MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-			if(angle >= Math.PI / 2 && angle < Math.PI) {
-				console.log("летит право вниз")
-				newX = x + MOVE_LENGHT * Math.sin(angle)
-				newY = y + MOVE_LENGHT * Math.cos(angle)
-				newAngle = angle
-			}
-		}
-	}
+  if(angle > 0 && angle < Math.PI / 2) {
+    console.log("летит вправо вверх")
+    newX = x + MOVE_LENGHT * Math.cos(angle)
+    newY = y - MOVE_LENGHT * Math.sin(angle)
+    newAngle = angle
+  }
+  else if(angle >= Math.PI / 2 && angle < Math.PI) {
+    console.log("летит влево вверх")
+    newX = x + MOVE_LENGHT * Math.cos(angle)
+    newY = y - MOVE_LENGHT * Math.sin(angle)
+    newAngle = angle
+  }
+  else if(angle >= Math.PI && angle < 3 * 2 * Math.PI / 4) {
+    console.log("летит влево вниз")
+    newX = x + MOVE_LENGHT * Math.cos(angle)
+    newY = y - MOVE_LENGHT * Math.sin(angle)
+    newAngle = angle
+  }
+  else if(angle >= 3 * 2 * Math.PI / 4 && angle < 2 * Math.PI) {
+    console.log("летит право вниз")
+    newX = x + MOVE_LENGHT * Math.cos(angle)
+    newY = y - MOVE_LENGHT * Math.sin(angle)
+    newAngle = angle
+  }
+  else {
+    console.log('чо-то')
+    console.log(angle)
+  }
 	
 	if(newX > BOARD_WIDTH) {
 		console.log("произошло столкновение с правой границей области")
 		newX = BOARD_WIDTH - (newX - BOARD_WIDTH)
-		newAngle = Math.PI - newAgle
+    if (newAngle < Math.PI) {
+		  newAngle = Math.PI - newAngle
+    }
+    else {
+      newAngle = 3 * Math.PI - newAngle
+    }
 	}
 	if(newX < 0) {
 		console.log("произошло столкновение с левой границей области")
 		newX = Math.abs(newX)
-		newAngle = Math.PI - newAgle
+    if (newAngle < Math.PI) {
+      console.log(123123123)
+		  newAngle = Math.PI - newAngle
+    }
+    else {
+      newAngle = 3 * Math.PI - newAngle
+    }
 	}
 	if(newY > BOARD_HEIGHT) {
 		console.log("произошло столкновение с нижней границей области")
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
-		newAngle = Math.PI - newAgle
+    if (newAngle < Math.PI) {
+		  newAngle = Math.PI - newAngle
+    }
+    else {
+      newAngle = 2 * Math.PI - newAngle
+    }
 	}
 	if(newY < 0) {
 		console.log("произошло столкновение с верхней границей области")
 		newY = Math.abs(newY)
-		newAngle = Math.PI - newAgle
+		newAngle = 2 * Math.PI - newAngle
 	}
 
 	return {newX, newY, newAngle}
