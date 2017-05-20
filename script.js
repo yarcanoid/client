@@ -1,7 +1,7 @@
 class Interface {
     constructor(data) {
         this._player = document.querySelector('.player');
-        this._player.style.top = "380px";
+        this._player.style.top = "400px";
         this._playerPosition = (data && data.player && data.player.x) || 0;
 
         this._ball = document.querySelector('.ball');
