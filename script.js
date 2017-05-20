@@ -63,8 +63,6 @@ window.addEventListener(
       // e.beta - угол наклона вперёд назад
       // e.gamma - влево вправо
 
-
-
       let orientationAngle = window.orientation;
 
       let orientation = 'Portrait';
@@ -85,7 +83,32 @@ window.addEventListener(
           result = 'left';
       }
 
+      if (result == 'right') {
+        move(1);
+      } else if (result == 'left')  {
+        move(-1);
+      }
+
 
       document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
     }
 );
+
+// window.addEventListener('keydown', (e) => {
+//   if (e.keyCode == 39)
+//     move(1);
+//   if (e.keyCode == 37)
+//     move(-1);
+// });
+
+function move(delta) {
+  let currentLeft = parseInt(playerDOM.style.left);
+  let newLeft = currentLeft + delta;
+
+  newLeft = Math.max(newLeft, 0);
+  console.log(newLeft);
+  newLeft = Math.min(newLeft, 400 - parseInt(playerDOM.offsetWidth));
+  console.log(newLeft);
+
+  playerDOM.style.left = newLeft + 'px';
+}
