@@ -1,6 +1,6 @@
 const BOARD_WIDTH = 400
 const BOARD_HEIGHT = 400
-const MOVE_LENGHT = 10
+const MOVE_LENGHT = 5
 const PLATFORM_WIDTH = 100
 
 // возвращает новые координаты
@@ -75,18 +75,17 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
 		newAngle = 2 * Math.PI - newAngle
 	}
 
-
-  // обрабатываем столкновения с бриксами
+  // обрабатываем столкновение с бриксом
   newBricks = []
-  bricks.forEach(function(brick){
-    if(newX > brick.x &&
-      newX < brick.x + 50 &&
-      newY > brick.y &&
-      newY < brick.y + 20) {
+  bricks.forEach(function(brick) {
+    if(newX > brick.x - 10 &&
+      newX < brick.x + 50 + 10 &&
+      newY > brick.y - 10 &&
+      newY < brick.y + 20 + 10) {
       console.log("произошло столкновение с бриком")
+      newAngle = 2 * Math.PI * Math.random()
     }
-    else
-    {
+    else {
       newBricks.push(brick)
     }
   })
@@ -102,11 +101,6 @@ function tick(currentState, playerPosition) {
 	newState.ball.x = newX
 	newState.ball.y = newY
 	newState.ball.angle = newAngle
-  /*
-  if(newState.bricks.length != newBricks.length) {
-    alert(newBricks)
-  }
-  */
   newState.bricks = newBricks
 	return newState
 }
