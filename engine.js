@@ -60,6 +60,7 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
     if (newX < platformX - 10 || newX > platformX + PLATFORM_WIDTH + 10) {
       // не попали в платформу
       alert("Проиграл")
+      location.reload()
     }
 		newY = BOARD_HEIGHT - (newY - BOARD_HEIGHT)
     if (newAngle < Math.PI) {
@@ -90,7 +91,10 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
       newBricks.push(brick)
     }
   })
-
+  if(newBricks.length == 0) {
+    alert("Выиграл")
+    location.reload()
+  }
 	return {newX, newY, newAngle, newBricks}
 }
 
