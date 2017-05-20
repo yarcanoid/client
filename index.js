@@ -24,6 +24,10 @@ function degreeToRadians(degree) {
     return (degree * Math.PI) / 180;
 }
 
+function radiansToDegree(radian) {
+    return (radian * 180) / Math.PI;
+}
+
 function lineByTwoPoints(point1, point2) {
     const {x: x1, y: y1} = point1;
     const {x: x2, y: y2} = point2;
@@ -256,7 +260,9 @@ function getNextPoint(point, direction, distance, lineSegments) {
             currentDistance -= currentDirectDistance;
             const obstacleDirection = getDirection(intersectionSegment);
 
-            currentDirection += obstacleDirection;
+
+            currentDirection = (currentDirection + obstacleDirection) % Math.PI;
+            console.log(radiansToDegree(currentDirection))
             currentPoint = intersection;
         } else {
             return calculatePointByFirstAndDirection(currentPoint, direction, distance)
@@ -282,4 +288,4 @@ setInterval(() => {
     const newPoint = getNextPoint(point, degreeToRadians(30), 5, borders);
     setBallCoordinates(newPoint);
     point = newPoint;
-}, 50);
+}, 20);
