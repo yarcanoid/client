@@ -43,7 +43,7 @@
 					 ]
 				 }
 
-			window.addEventListener('DOMContentLoaded', boardRefresh);
+			window.addEventListener('DOMContentLoaded', loop)
 			let currentState = initialState
 			
       function boardRefresh() {
@@ -52,7 +52,7 @@
       }
 
       function loop() {
-        //window.requestAnimationFrame(loop)
+        window.requestAnimationFrame(loop)
         boardRefresh()
       }
 
