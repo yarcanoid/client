@@ -4,7 +4,7 @@ const MOVE_LENGHT = 10
 const PLATFORM_WIDTH = 100
 
 // возвращает новые координаты
-function getNewCoordinates(x, y, angle, platformX, bricks) {
+function getNewCoordinates(x, y, angle, platformX) {
 	let newX = 0
 	let newY = 0
 	let newAngle = 0
@@ -33,8 +33,11 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
     newY = y - MOVE_LENGHT * Math.sin(angle)
     newAngle = angle
   }
-	
-  // обрабатываем столкновения с границами игрового поля
+  else {
+    console.log('чо-то')
+    console.log(angle)
+  }
+
 	if(newX > BOARD_WIDTH) {
 		console.log("произошло столкновение с правой границей области")
 		newX = BOARD_WIDTH - (newX - BOARD_WIDTH)
@@ -75,42 +78,19 @@ function getNewCoordinates(x, y, angle, platformX, bricks) {
 		newAngle = 2 * Math.PI - newAngle
 	}
 
-
-  // обрабатываем столкновения с бриксами
-  newBricks = []
-  bricks.forEach(function(brick){
-    if(newX > brick.x &&
-      newX < brick.x + 50 &&
-      newY > brick.y &&
-      newY < brick.y + 20) {
-      console.log("произошло столкновение с бриком")
-    }
-    else
-    {
-      newBricks.push(brick)
-    }
-  })
-
-	return {newX, newY, newAngle, newBricks}
+	return {newX, newY, newAngle}
 }
 
 // пересчитывает состояние каждый тик
 function tick(currentState, playerPosition) {
-	let newState = currentState
-	let {newX, newY, newAngle, newBricks} = getNewCoordinates(currentState.ball.x, currentState.ball.y, currentState.ball.angle, playerPosition, currentState.bricks)
+	let newState = currentState;
+	let {newX, newY, newAngle} = getNewCoordinates(currentState.ball.x, currentState.ball.y, currentState.ball.angle, playerPosition)
 	newState.player.x = playerPosition
 	newState.ball.x = newX
 	newState.ball.y = newY
 	newState.ball.angle = newAngle
-  /*
-  if(newState.bricks.length != newBricks.length) {
-    alert(newBricks)
-  }
-  */
-  newState.bricks = newBricks
 	return newState
 }
-
 
 function getResponse(innerState) {
   return innerState
@@ -119,4 +99,3 @@ function getResponse(innerState) {
 if (typeof module !== 'undefined' &&  typeof module.exports !== 'undefined') {
   module.exports = getNewCoordinates
 }
-

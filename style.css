@@ -109,3 +109,28 @@ body::before {
   background: -webkit-radial-gradient(center, ellipse cover, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(ellipse at center, rgba(233,246,253,1) 0%,rgba(211,238,251,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
+
+.boom {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+}
+.boom:after {
+  background: url(explosion.png);
+  content: '';
+  width: 1472px;
+  height: 64px;
+  left: 0;
+  position: absolute;
+
+  animation-name: boom;
+  animation-timing-function: steps(22, end);
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes boom {
+  from: {left: 0px;}
+  to {left: -1408px;}
+}
