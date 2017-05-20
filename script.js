@@ -67,7 +67,7 @@ class Interface {
         );
 
         window.addEventListener('keydown', e => {
-            let moveTo = 3 * (e.shiftKey ? 5 : 1);
+            let moveTo = 6 * (e.shiftKey ? 5 : 1);
 
             if (e.keyCode == 39)
                 this._movePlayer(moveTo);
