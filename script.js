@@ -78,7 +78,7 @@ window.addEventListener(
       }
 
       if (Math.abs(result) > 10) {
-        move(Math.floor(result * 3));
+        move(Math.floor(result / 4));
       }
 
       document.querySelector('.orient-info').textContent = `v7 ${result} ${orientation}`;
