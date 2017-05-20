@@ -1,5 +1,4 @@
 body {
-  width: 100vw;
   height: 100vh;
   margin: 0px;
 
@@ -9,6 +8,12 @@ body {
   background: linear-gradient(to bottom, #0064c9 0%,#4484bf 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
+body::before {
+  content: '';
+  display: block;
+  height: 20px;
+}
+
 .field {
   width: 400px;
   height: 400px;
@@ -16,10 +21,9 @@ body {
   margin-right: auto;
   position: relative;
 
-  border-top:4px dotted rgb(233,246,253);
-  border-right:4px dotted rgb(233,246,253);
-  border-left:4px dotted rgb(233,246,253);
-
+  border-top: 5px dotted rgb(233,246,253);
+  border-right: 5px dotted rgb(233,246,253);
+  border-left: 5px dotted rgb(233,246,253);
 }
 
 .brick {
