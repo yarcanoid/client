@@ -1,6 +1,7 @@
 body {
   width: 100vw;
   height: 100vh;
+  margin: 0px;
 }
 
 .field {
@@ -80,7 +81,7 @@ body {
   height: 20px;
   display: inline-block;
   border-left: black 2px solid;
-  margin-left: 28px;
+  margin-left: 78px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   background: #f85032; /* Old browsers */
