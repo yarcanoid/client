@@ -196,23 +196,90 @@ const borders = [
 ];
 
 const MAX_WAY_LENGTH = 1000;
-const startPoint = {
-    x: 100,
-    y: 100
-};
-
 function getFirstIntersection(point, direction, lineSegments) {
-    const directionPoint = {
-        x: MAX_WAY_LENGTH * Math.cos(direction),
-        y: MAX_WAY_LENGTH * Math.sin(direction)
-    };
+    const directionPoint = calculatePointByFirstAndDirection(point, direction, MAX_WAY_LENGTH);
 
     const startLineSegment = {
         a: point,
         b: directionPoint
     };
 
-    return lineSegments.map((lineSegment) => getLineSegmentsIntersection(startLineSegment, lineSegment))
+    return lineSegments
+        .map((lineSegment) => ({
+            point: getLineSegmentsIntersection(startLineSegment, lineSegment),
+            lineSegment
+        }))
+        .filter((lineSegment) => lineSegment.point !== undefined)
+        .sort((a, b) => getDistance(startPoint, a.point) - getDistance(startPoint, b.point))[0];
 }
 
-console.log(getFirstIntersection(startPoint, degreeToRadians(30), borders))
+function getDistance(point1, point2) {
+    const {x: x1, y: y1} = point1;
+    const {x: x2, y: y2} = point2;
+
+    return Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1))
+}
+
+function calculatePointByFirstAndDirection(point, direction, distance) {
+    const offsetX = distance * Math.cos(direction);
+    const offsetY = distance * Math.sin(direction);
+
+    return {
+        x: point.x + offsetX,
+        y: point.y + offsetY
+    };
+}
+
+function getDirection(lineSegment) {
+    const {a: {x: x1, y: y1}, b: {x: x2, y: y2}} = lineSegment;
+
+    const sin = (y1 - y2) / (x1 - x2);
+    if (Math.abs(sin) === Infinity) {
+        return degreeToRadians(90);
+    } else {
+        return Math.asin(sin);
+    }
+}
+
+function getNextPoint(point, direction, distance, lineSegments) {
+    let currentDistance = distance;
+    let currentPoint = point;
+    let currentDirection = direction;
+
+    while (true) {
+        const {
+            point: intersection,
+            lineSegment: intersectionSegment
+        } = getFirstIntersection(currentPoint, currentDirection, lineSegments);
+        const currentDirectDistance = getDistance(currentPoint, intersection);
+        if (currentDistance > currentDirectDistance) {
+            currentDistance -= currentDirectDistance;
+            const obstacleDirection = getDirection(intersectionSegment);
+
+            currentDirection += obstacleDirection;
+            currentPoint = intersection;
+        } else {
+            return calculatePointByFirstAndDirection(currentPoint, direction, distance)
+        }
+    }
+}
+
+
+let point = {
+    x: 100,
+    y: 100
+};
+
+const ball = document.getElementById('ball');
+setBallCoordinates(point);
+
+function setBallCoordinates({x, y}) {
+    ball.style.top = `${500 - y}px`;
+    ball.style.left = `${x}px`;
+}
+
+setInterval(() => {
+    const newPoint = getNextPoint(point, degreeToRadians(30), 5, borders);
+    setBallCoordinates(newPoint);
+    point = newPoint;
+}, 50);
