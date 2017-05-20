@@ -3,7 +3,8 @@ const BOARD_HEIGHT = 400
 const MOVE_LENGHT = 10
 
 // изначальное состояние игры
-let initialState = {
+
+/*let initialState = {
     "player":
       {
         "x": 175
@@ -24,7 +25,7 @@ let initialState = {
 
 // внутреннее состояние сцены (в начале игры равно изначальному)
 let innerState = initialState
-
+*/
 // возвращает новые координаты
 function getNewCoordinates(x, y, angle) {
 	let newX = 0
@@ -90,7 +91,7 @@ function getNewCoordinates(x, y, angle) {
 // пересчитывает состояние каждый тик
 function tick(currentState, playerPosition) {
 	console.log(currentState)
-	let newState = currentState
+	let newState = currentState;
 	let {newX, newY, newAngle} = getNewCoordinates(currentState.ball.x, currentState.ball.y, currentState.ball.angle)
 	newState.player.x = playerPosition
 	newState.ball.x = newX
@@ -104,9 +105,10 @@ function getResponse(innerState) {
 }
 
 //console.log(getResponse(innerState))
-console.log(tick(initialState, 200))
+//console.log(tick(initialState, 200))
 //console.log(getNewCoordinates(200, 400, 0.54))
 
-if (typeof module.exports !== 'undefined') {
-  module.exports = getNewCoordinates;
+if (typeof module !== 'undefined' &&  typeof module.exports !== 'undefined') {
+  module.exports = getNewCoordinates
 }
+

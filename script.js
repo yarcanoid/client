@@ -3,7 +3,6 @@ function render (data) {
   // ball {x, y}
   // bricks [{x, y}]
   const {player, ball, bricks} = data;
-  console.log(bricks);
 
   renderBricks(bricks);
 
@@ -12,7 +11,7 @@ function render (data) {
   ballDOM.style.top = ball.y + "px";
 }
 
-const initial = {
+/*const initial = {
   player: {
     x: 20
   },
@@ -26,7 +25,7 @@ const initial = {
       y: 20
     }
   ]
-}
+}*/
 
 let playerDOM;
 let bricks = [];
@@ -37,7 +36,7 @@ function start(data) {
   ballDOM = document.querySelector('.ball');
   playerDOM.style.top = "380px"
 
-  render(data);
+//  render(data);
 }
 
 function renderBricks(bricksData) {
@@ -54,7 +53,7 @@ function renderBricks(bricksData) {
   })
 }
 
-document.addEventListener('DOMContentLoaded', start.bind(null, initial));
+document.addEventListener('DOMContentLoaded', start);
 
 window.addEventListener(
     "deviceorientation",
