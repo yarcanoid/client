@@ -92,6 +92,9 @@ window.addEventListener(
 //     move(-1);
 // });
 
+// let audio = new AudioSample();
+// audio.shoot();
+
 function move(delta) {
   let currentLeft = parseInt(playerDOM.style.left);
   let newLeft = currentLeft + delta;
