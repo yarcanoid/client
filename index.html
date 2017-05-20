@@ -26,34 +26,32 @@
 <script src="./script.js"></script>
 <script src="./engine.js"></script>
 <script>
-    // изначальное состояние игры
-    let initialState = {
-        "player": {
-            "x": 175
-        },
-        "ball": {
-            "x": 200,
-            "y": 400,
-            "angle": 0.54
-        },
-        "bricks": [
-            {
-                "x": 175,
-                "y": 50
-            },
-            {
-                "x": 190,
-                "y": 20
-            },
-            {
-                "x": 120,
-                "y": 20
-            }
+    function generateState() {
+      // изначальное состояние игры
+      let initialState = {
+          "player": {
+              "x": 175
+          },
+          "ball": {
+              "x": 200,
+              "y": 400,
+              "angle": 0.54
+          },
+          "bricks": []
+        }
 
-        ]
-    };
+      let x = 0
+      let y = 0
+      for (y = 0; y < 200; y += 30) {
+        x = Math.random() * 350
+        initialState.bricks.push({"x": x, "y": y})
+      }
 
-    window.addEventListener('DOMContentLoaded', start);
+      return initialState
+    }
+    let initialState = generateState()
+   
+    window.addEventListener('DOMContentLoaded', start)
     let currentState = initialState;
     let interface;
     function start() {
@@ -66,7 +64,6 @@
         interface.render(currentState);
         window.requestAnimationFrame(loop);
     }
-
 </script>
 </body>
 </html>
