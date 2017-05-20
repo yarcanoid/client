@@ -1,61 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <title>YArcanoid</title>
     <link href="./style.css" rel="stylesheet">
-  </head>
-  <body>
-    <template class="bricks-template">
-      <div class="brick"></div>
-    </template>
-    <div class="field">
-      <div class="bricks">
-      </div>
-      <div class="player">
-
-      </div>
-      <div class="ball">
-
-      </div>
+</head>
+<body>
+<template class="bricks-template">
+    <div class="brick"></div>
+</template>
+<div class="field">
+    <div class="bricks">
     </div>
-    <div class="orient-info">
-    </div>
-    <script src="./script.js"></script>
-    <script src="./engine.js"></script>
-    <script>
-			// изначальное состояние игры
-			 let initialState = {
-					 "player":
-						 {
-							 "x": 175
-						 },
-					 "ball":
-						 {
-							 "x": 200,
-							 "y": 400,
-							 "angle": 0.54
-						 },
-					 "bricks": [
-						 {
-							 "x": 175,
-							 "y": 50
-						 }
-					 ]
-				 }
+    <div class="player">
 
-			window.addEventListener('DOMContentLoaded', loop)
-			let currentState = initialState
-			
-      function boardRefresh() {
-				render(currentState)
+    </div>
+    <div class="ball">
+
+    </div>
+</div>
+<div class="orient-info">
+</div>
+<script src="./script.js"></script>
+<script src="./engine.js"></script>
+<script>
+    // изначальное состояние игры
+    let initialState = {
+        "player": {
+            "x": 175
+        },
+        "ball": {
+            "x": 200,
+            "y": 400,
+            "angle": 0.54
+        },
+        "bricks": [
+            {
+                "x": 175,
+                "y": 50
+            }
+        ]
+    };
+
+    window.addEventListener('DOMContentLoaded', start);
+    let currentState = initialState;
+    let interface;
+    function start() {
+        interface = new Interface(initialState);
+        loop();
+    }
+
+    function loop() {
         currentState = tick(currentState, parseInt(document.querySelector('.player').style.left))
-      }
+        interface.render(currentState);
+        window.requestAnimationFrame(loop);
+    }
 
-      function loop() {
-        window.requestAnimationFrame(loop)
-        boardRefresh()
-      }
-
-    </script>
-  </body>
+</script>
+</body>
 </html>

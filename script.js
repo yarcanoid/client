@@ -1,86 +1,92 @@
-function render (data) {
-  const {player, ball, bricks} = data;
+class Interface {
+    constructor (data) {
+        this._player = document.querySelector('.player');
+        this._player.style.top = "380px";
+        this._playerPosition = (data && data.player && data.player.x) || 0;
 
-  renderBricks(bricks);
+        this._ball = document.querySelector('.ball');
+        this._ballOffset = {x: this._ball.offsetWidth / 2, y: this._ball.offsetHeight / 2};
 
-  playerDOM.style.left = player.x + "px";
-  ballDOM.style.left = ball.x - ballCenter.x + "px";
-  ballDOM.style.top = ball.y - ballCenter.y + "px";
-}
+        this._bricksTemplate = document.querySelector('.bricks-template');
+        this._brickTemplate = this._bricksTemplate.content.querySelector('.brick');
+        this._bricksContainer = document.querySelector('.bricks');
 
-let playerDOM;
-let bricks = [];
-let ballDOM;
-let ballCenter;
+        if (data) {
+            this.render(data);
+        }
 
-function start() {
-    playerDOM = document.querySelector('.player');
-    playerDOM.style.top = "380px";
-
-    ballDOM = document.querySelector('.ball');
-    ballCenter = {x: ballDOM.offsetWidth / 2, y: ballDOM.offsetHeight / 2};
-}
-
-function renderBricks(bricksData) {
-  const bricksTemplate = document.querySelector('.bricks-template');
-  const template = bricksTemplate.content.querySelector('.brick');
-  const bricksContainer = document.querySelector('.bricks');
-
-  bricksTemplate.textContent = '';
-
-  bricksData.forEach(brickData => {
-    let brick = document.importNode(template, true);
-    brick.style.left = brickData.x + 'px';
-    brick.style.top = brickData.y + 'px';
-
-    bricksContainer.appendChild(brick);
-  })
-}
-
-document.addEventListener('DOMContentLoaded', start);
-
-window.addEventListener(
-    "deviceorientation",
-    function(e){
-      // e.alpha угол поворота
-      // e.beta - угол наклона вперёд назад
-      // e.gamma - влево вправо
-
-      // let orientationAngle = window.orientation;
-
-      let orientation = 'Portrait';
-      if (typeof window.orientation != "undefined" && Math.abs(window.orientation) === 90) {
-        orientation = 'Landscape';
-      }
-
-      let result = '';
-      if (orientation == 'Portrait') {
-        result = e.gamma;
-      } else {
-        result = Math.sign(window.orientation) * e.beta;
-      }
-
-      if (Math.abs(result) > 10) {
-        move(Math.floor(result / 3));
-      }
-
-      document.querySelector('.orient-info').textContent = `v8 ${result} ${orientation}`;
+        this._initEvents();
     }
-);
 
-window.addEventListener('keydown', (e) => {
-  if (e.keyCode == 39)
-    move(1);
-  if (e.keyCode == 37)
-    move(-1);
-});
+    render (data) {
+        const {player, ball, bricks} = data;
 
-function move (delta) {
-    let currentLeft = parseInt(playerDOM.style.left);
-    let newLeft = currentLeft + delta;
+        this._renderBricks(bricks);
 
-    newLeft = Math.max(newLeft, 0);
-    newLeft = Math.min(newLeft, 400 - parseInt(playerDOM.offsetWidth));
+        this._player.style.left = player.x + "px";
+        this._ball.style.left = ball.x - this._ballOffset.x + "px";
+        this._ball.style.top = ball.y - this._ballOffset.y + "px";
+    }
 
-    playerDOM.style.left = newLeft + 'px';
+    _renderBricks (bricks) {
+        this._bricksTemplate.textContent = '';
+
+        bricks.forEach(brick => {
+            let node = document.importNode(this._brickTemplate, true);
+            node.style.left = brick.x + 'px';
+            node.style.top = brick.y + 'px';
+
+            this._bricksContainer.appendChild(node);
+        })
+    }
+
+    _initEvents () {
+        window.addEventListener(
+            "deviceorientation",
+            e => {
+                let orientation = 'Portrait';
+                if (typeof window.orientation != "undefined" && Math.abs(window.orientation) === 90) {
+                    orientation = 'Landscape';
+                }
+
+                let result = '';
+                if (orientation == 'Portrait') {
+                    result = e.gamma;
+                } else {
+                    result = Math.sign(window.orientation) * e.beta;
+                }
+
+                if (Math.abs(result) > 10) {
+                    this._movePlayer(Math.floor(result / 3));
+                }
+
+                if (window.location.search.substr(1) === 'debug') {
+                    document.querySelector('.orient-info').textContent = `v8 ${result} ${orientation}`;
+                }
+            }
+        );
+
+        window.addEventListener('keydown', e => {
+            let moveTo = 3 * (e.shiftKey ? 5 : 1);
+
+            if (e.keyCode == 39)
+                this._movePlayer(moveTo);
+            if (e.keyCode == 37)
+                this._movePlayer(-moveTo);
+        });
+    }
+
+    _movePlayer (delta) {
+        let newLeft = this._playerPosition + delta;
+
+        newLeft = Math.max(newLeft, 0);
+        newLeft = Math.min(newLeft, 400 - parseInt(this._player.offsetWidth));
+
+        this._playerPosition = newLeft;
+        this._player.style.left = newLeft + 'px';
+    }
 }
+
+window.addEventListener('DOMContentLoaded', e => {
+    new Interface();
+});
