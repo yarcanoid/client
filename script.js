@@ -68,9 +68,12 @@ window.addEventListener(
       else if (e.gamma < -10)
         result = 'left';
 
-      document.querySelector('.orient-info').textContent = `${result} ${screen.orientation.angle}`;
-      
+      let orientation = 'Portrait';
+      if (Math.abs(window.orientation) === 90) {
+        orientation = 'Landscape';
+      }
 
+      document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
     }
 );
 
