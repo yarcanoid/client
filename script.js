@@ -62,16 +62,27 @@ window.addEventListener(
       // e.alpha угол поворота
       // e.beta - угол наклона вперёд назад
       // e.gamma - влево вправо
-      let result = '';
-      if (e.gamma > 10)
-        result = 'right';
-      else if (e.gamma < -10)
-        result = 'left';
+
+      let orientationAngle = window.orientation || window.screen.orientation.angle;
 
       let orientation = 'Portrait';
-      if (Math.abs(window.orientation) === 90) {
+      if (Math.abs(orientationAngle) === 90) {
         orientation = 'Landscape';
       }
+
+      let result = '';
+      if (orientation == 'Portrait') {
+        if (e.gamma > 10)
+          result = 'right';
+        else if (e.gamma < -10)
+          result = 'left';
+      } else {
+        if (e.beta > 10)
+          result = 'right';
+        else if (e.beta < -10)
+          result = 'left';
+      }
+
 
       document.querySelector('.orient-info').textContent = `${result} ${orientation}`;
     }
