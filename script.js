@@ -13,6 +13,8 @@ class Interface {
         this._bricksContainer = document.querySelector('.bricks');
         this._boomsContainer = document.querySelector('.booms');
 
+        this._bricksKills = [];
+
         if (data) {
             this.render(data);
         }
@@ -35,18 +37,26 @@ class Interface {
             return;
         }
 
-        // if (!this._bricks) {
 
         if (this._bricks) {
           let removedBrick = this._bricks.filter(brick => {
             return bricks.filter(newBrick => {
               return newBrick.x === brick.x && newBrick.y === brick.y
             }).length === 0;
-          })
+          });
 
           this._bricksContainer.textContent = '';
 
           if (removedBrick.length > 0) {
+            let currentKill = Number(new Date());
+            if (this._bricksKills.length === 5 && (currentKill - this._bricksKills[0] < 10 * 1000 * 5)) {
+                this._bricksKills = [];
+                // Проиграть звук «multikill»
+                console.log('multi');
+            }
+
+            this._bricksKills.push(currentKill);
+            this._bricksKills = this._bricksKills.slice(-5);
             let boom = document.importNode(this._boomTemplate, true);
             boom.style.left = removedBrick[0].x + 'px';
             boom.style.top = removedBrick[0].y + 'px';
