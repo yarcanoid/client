@@ -83,7 +83,6 @@ function getNewCoordinates(x, y, angle) {
 		newY = Math.abs(newY)
 		newAngle = Math.PI - newAgle
 	}
-
 	return {newX, newY, newAngle}
 }
 
@@ -104,8 +103,8 @@ function getResponse(innerState) {
 }
 
 //console.log(getResponse(innerState))
-console.log(tick(initialState, 200))
-//console.log(getNewCoordinates(200, 400, 0.54))
+//console.log(tick(initialState, 200))
+console.log(getNewCoordinates(200, 400, 0.54))
 
 if (typeof module.exports !== 'undefined') {
   module.exports = getNewCoordinates;
