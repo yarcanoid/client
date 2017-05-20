@@ -1,5 +1,5 @@
 class Interface {
-    constructor (data) {
+    constructor(data) {
         this._player = document.querySelector('.player');
         this._player.style.top = "380px";
         this._playerPosition = (data && data.player && data.player.x) || 0;
@@ -18,7 +18,7 @@ class Interface {
         this._initEvents();
     }
 
-    render (data) {
+    render(data) {
         const {player, ball, bricks} = data;
 
         this._renderBricks(bricks);
@@ -28,7 +28,7 @@ class Interface {
         this._ball.style.top = ball.y - this._ballOffset.y + "px";
     }
 
-    _renderBricks (bricks) {
+    _renderBricks(bricks) {
         this._bricksTemplate.textContent = '';
 
         bricks.forEach(brick => {
@@ -40,7 +40,7 @@ class Interface {
         })
     }
 
-    _initEvents () {
+    _initEvents() {
         window.addEventListener(
             "deviceorientation",
             e => {
@@ -76,7 +76,7 @@ class Interface {
         });
     }
 
-    _movePlayer (delta) {
+    _movePlayer(delta) {
         let newLeft = this._playerPosition + delta;
 
         newLeft = Math.max(newLeft, 0);
@@ -86,7 +86,5 @@ class Interface {
         this._player.style.left = newLeft + 'px';
     }
 }
-
-window.addEventListener('DOMContentLoaded', e => {
-    new Interface();
-});
+// let audio = new AudioSample();
+// audio.shoot();
