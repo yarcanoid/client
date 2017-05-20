@@ -33,7 +33,7 @@ class Interface {
             return;
         }
 
-        this._bricksTemplate.textContent = '';
+        this._bricksContainer.textContent = '';
 
         bricks.forEach(brick => {
             let node = document.importNode(this._brickTemplate, true);
