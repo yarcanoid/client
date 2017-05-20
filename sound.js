@@ -1,16 +1,5 @@
 class Sound {
   constructor() {
-    this.bufferLoader = new BufferLoader(
-      context,
-      [
-        './MultiKill.mp3',
-        './HolyShit.mp3',
-        './PrepareToFight.mp3',
-      ],
-      this._finishedLoading.bind(this)
-      );
-
-    this.bufferLoader.load();
   }
 
   _finishedLoading(bufferList) {
@@ -25,20 +14,67 @@ class Sound {
     source1.connect(context.destination);
     source2.connect(context.destination);
     source3.connect(context.destination);
-    source1.start(0);
+    // source1.start(0);
     // source2.start(0);
     // source3.start(0);
   }
 
   multiKill() {
-    source1.start(0);
+    this.multiKillBuffer = new BufferLoader(
+        context,
+        [
+          './MultiKill.mp3',
+        ],
+        (bufferList) => {
+          // Create two sources and play them both together.
+          var source1 = context.createBufferSource();
+          source1.buffer = bufferList[0];
+
+          source1.connect(context.destination);
+          source1.start(0);
+        }
+      );
+
+    this.multiKillBuffer.load();
   }
 
   holyShit() {
-    source2.start(0);
+    this.holyShitBuffer = new BufferLoader(
+      context,
+      [
+        './HolyShit.mp3',
+      ],
+      (bufferList) => {
+        // Create two sources and play them both together.
+        var source1 = context.createBufferSource();
+        source1.buffer = bufferList[0];
+
+        source1.connect(context.destination);
+        source1.start(0);
+      }
+      );
+
+    this.holyShitBuffer.load();
   }
 
   prepareToFight() {
-    source3.start(0);
+    this.prepareToFightBuffer = new BufferLoader(
+      context,
+      [
+        './PrepareToFight.mp3',
+      ],
+      (bufferList) => {
+        // Create two sources and play them both together.
+        var source1 = context.createBufferSource();
+        source1.buffer = bufferList[0];
+
+        source1.connect(context.destination);
+        source1.start(0);
+      }
+      );
+
+    this.prepareToFightBuffer.load();
   }
 }
+
+var sound = new Sound();

@@ -64,6 +64,9 @@ function getNewCoordinates(x, y, angle, platformX, bricks = []) {
 		console.log("произошло столкновение с нижней границей области")
     if (newX < platformX - 10 || newX > platformX + PLATFORM_WIDTH + 10) {
       // не попали в платформу
+			// let sound = new Sound();
+			sound.holyShit();
+
       alert("Проиграл")
       location.reload()
     }
