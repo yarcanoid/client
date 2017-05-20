@@ -63,13 +63,17 @@ window.addEventListener(
       // e.beta - угол наклона вперёд назад
       // e.gamma - влево вправо
       let result = '';
-      if (e.gamma > 20)
+      if (e.gamma > 10)
         result = 'right';
-      else if (e.gamma < -20)
+      else if (e.gamma < -10)
         result = 'left';
 
-      document.querySelector('.orient-info').textContent = `${result}`;
-
+      document.querySelector('.orient-info').textContent = `${result} ${screen.orientation.angle}`;
+      
 
     }
 );
+
+window.addEventListener("orientationchange", function() {
+    alert("the orientation of the device is now " + screen.orientation.angle);
+});
