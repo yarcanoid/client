@@ -30,6 +30,7 @@ body::before {
   position: absolute;
   width: 50px;
   height: 20px;
+  box-sizing: border-box;
 }
 
 .brick-style-1 {
