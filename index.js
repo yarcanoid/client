@@ -9,6 +9,26 @@ const lineSegment1 = {
     }
 };
 
+const player = document.getElementById('player');
+let playerPosition = 0;
+function setPlayerPosition (pos) {
+    const newPos = Math.min(Math.max(0, pos), 400)
+
+    playerPosition = newPos;
+    player.style.left = `${newPos}px`;
+}
+
+const THRESHOLD = 75;
+
+document.body.addEventListener('keydown', (e) => {
+    if (e.keyCode === 37) {
+        setPlayerPosition(playerPosition - THRESHOLD);
+    }
+    if (e.keyCode === 39) {
+        setPlayerPosition(playerPosition + THRESHOLD);
+    }
+});
+
 const lineSegment2 = {
     a: {
         x: 0,
@@ -54,26 +74,26 @@ function getLinesIntersectionPoint(line1, line2) {
     if (b1 === 0) {
         // vertical 1
         return {
-            x: a1,
+            x: -c1 / a1,
             y
         }
     } else if (b2 === 0) {
         // vertical 2
         return {
-            x: a2,
+            x: -c2 / a2,
             y
         }
     } else if (a1 === 0) {
         // horizontal 1
         return {
             x,
-            y: -c1
+            y: -c1 / b1
         }
     } else if (a2 === 0) {
         // horizontal 2
         return {
             x,
-            y: -c2
+            y: -c2 / b2
         }
     } else {
         return {x, y};
@@ -156,7 +176,7 @@ function getLineSegmentsIntersection(lineSegment1, lineSegment2) {
     }
 }
 
-const borders = [
+let borders = [
     {
         a: {
             x: 0,
@@ -199,6 +219,79 @@ const borders = [
     }
 ];
 
+const bricks = [];
+
+for (let key = 0; key < 12; key++) {
+    for (let key1 = 0; key1 < 4; key1++) {
+        bricks.push({
+            y: key1 * 42,
+            x: key  * 42
+        })
+    }
+}
+
+const BRICK_SIZE = 40;
+const field = document.getElementById('field');
+bricks.forEach((brick) => {
+    const $brick = document.createElement('div');
+    $brick.style.width = `${BRICK_SIZE}px`;
+    $brick.style.height = `${BRICK_SIZE}px`;
+    $brick.style.left = `${brick.x}px`;
+    $brick.style.top = `${brick.y}px`;
+    $brick.style.position = 'absolute';
+    $brick.style.backgroundColor = 'green';
+    field.appendChild($brick);
+
+    const reverted = {
+        x: brick.x,
+        y: 500 - brick.y
+    };
+
+    const a = {
+        x: reverted.x,
+        y: reverted.y,
+    };
+
+    const b = {
+        x: reverted.x + BRICK_SIZE,
+        y: reverted.y,
+    };
+
+    const c = {
+        x: reverted.x,
+        y: reverted.y - BRICK_SIZE,
+    };
+
+    const d = {
+        x: reverted.x + BRICK_SIZE,
+        y: reverted.y - BRICK_SIZE,
+    };
+
+    borders.push({
+        a: a,
+        b: b,
+        $brick: $brick
+    });
+
+    borders.push({
+        a: b,
+        b: c,
+        $brick: $brick
+    });
+
+    borders.push({
+        a: c,
+        b: d,
+        $brick: $brick
+    });
+
+    borders.push({
+        a: d,
+        b: a,
+        $brick: $brick
+    });
+});
+
 const MAX_WAY_LENGTH = 1000;
 function getFirstIntersection(point, direction, lineSegments) {
     const directionPoint = calculatePointByFirstAndDirection(point, direction, MAX_WAY_LENGTH);
@@ -208,13 +301,30 @@ function getFirstIntersection(point, direction, lineSegments) {
         b: directionPoint
     };
 
-    return lineSegments
-        .map((lineSegment) => ({
-            point: getLineSegmentsIntersection(startLineSegment, lineSegment),
-            lineSegment
-        }))
-        .filter((lineSegment) => lineSegment.point !== undefined)
-        .sort((a, b) => getDistance(startPoint, a.point) - getDistance(startPoint, b.point))[0];
+    const allObjects = lineSegments
+        .map((lineSegment) => {
+            const newPoint = getLineSegmentsIntersection(startLineSegment, lineSegment);
+
+            const synchronized = newPoint ? {
+                x: Math.min(Math.max(1, newPoint.x), 499),
+                y: Math.min(Math.max(1, newPoint.y), 499)
+            } : undefined;
+
+            const distance = synchronized ? getDistance(point, synchronized) : 0;
+
+            return ({
+                point: synchronized,
+                lineSegment,
+                distance
+            });
+        });
+
+    return allObjects.filter((object) => {
+        return object.distance > 0.0001;
+    })
+        .sort((a, b) => {
+            return a.distance - b.distance;
+        })[0];
 }
 
 function getDistance(point1, point2) {
@@ -238,34 +348,71 @@ function getDirection(lineSegment) {
     const {a: {x: x1, y: y1}, b: {x: x2, y: y2}} = lineSegment;
 
     const sin = (y1 - y2) / (x1 - x2);
-    if (Math.abs(sin) === Infinity) {
+    if (sin === -Infinity) {
+        return degreeToRadians(90);
+    } else if (sin === Infinity) {
         return degreeToRadians(90);
     } else {
         return Math.asin(sin);
     }
 }
 
+const testPoint = {x: 500, y: 330.94010767584984};
+const testDirection = 2.0943951023931953;
+
 function getNextPoint(point, direction, distance, lineSegments) {
     let currentDistance = distance;
     let currentPoint = point;
     let currentDirection = direction;
 
+    if (currentPoint.y < 5) {
+        if (currentPoint.x < playerPosition || currentPoint.x > (playerPosition + 100)) {
+            alert('GAME OVER!');
+            location.reload();
+        }
+    }
+
     while (true) {
+        const firstIntersection = getFirstIntersection(currentPoint, currentDirection, lineSegments);
         const {
             point: intersection,
-            lineSegment: intersectionSegment
-        } = getFirstIntersection(currentPoint, currentDirection, lineSegments);
-        const currentDirectDistance = getDistance(currentPoint, intersection);
+            lineSegment: intersectionSegment,
+            distance: currentDirectDistance
+        } = firstIntersection;
+
         if (currentDistance > currentDirectDistance) {
             currentDistance -= currentDirectDistance;
+
+            if (intersectionSegment.$brick) {
+                try {
+                    field.removeChild(intersectionSegment.$brick);
+                }catch(e){}
+                const removing = [];
+
+                borders.forEach((border) => {
+                    if (border.$brick === intersectionSegment.$brick) {
+                        removing.push(border);
+                    }
+                });
+
+                removing.forEach((border) => {
+                    borders = borders.filter((b) => b !== border);
+                })
+            }
+
             const obstacleDirection = getDirection(intersectionSegment);
 
+            const t = obstacleDirection + (Math.PI - ((Math.PI - obstacleDirection) + currentDirection ));
 
-            currentDirection = (currentDirection + obstacleDirection) % Math.PI;
-            console.log(radiansToDegree(currentDirection))
+            currentDirection = t % (2 * Math.PI);
             currentPoint = intersection;
         } else {
-            return calculatePointByFirstAndDirection(currentPoint, direction, distance)
+            const newPoint = calculatePointByFirstAndDirection(currentPoint, currentDirection, currentDistance);
+
+            return {
+                point: newPoint,
+                direction: currentDirection
+            }
         }
     }
 }
@@ -275,17 +422,29 @@ let point = {
     x: 100,
     y: 100
 };
+let direction = degreeToRadians(Math.random() * 30 + 30)
 
 const ball = document.getElementById('ball');
 setBallCoordinates(point);
 
 function setBallCoordinates({x, y}) {
-    ball.style.top = `${500 - y}px`;
-    ball.style.left = `${x}px`;
+    ball.style.top = `${(500 - y) - 10}px`;
+    ball.style.left = `${x - 10}px`;
 }
 
-setInterval(() => {
-    const newPoint = getNextPoint(point, degreeToRadians(30), 5, borders);
+// console.log(getFirstIntersection(testPoint, testDirection, borders));
+
+let lastTime = Date.now();
+const tick = () => {
+    const now = Date.now();
+    const delay = now - lastTime;
+    lastTime = now;
+    const {point: newPoint, direction: newDirection} = getNextPoint(point, direction, Math.min(delay / 2, 50), borders);
     setBallCoordinates(newPoint);
+    direction = newDirection;
     point = newPoint;
-}, 20);
+
+    requestAnimationFrame(tick)
+};
+
+requestAnimationFrame(tick);

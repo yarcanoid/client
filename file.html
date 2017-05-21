@@ -10,12 +10,22 @@
             width: 100%;
             margin: 0;
         }
+
+        #player {
+            position: absolute;
+            width: 100px;
+            height: 10px;
+            bottom: -10px;
+            left: 0;
+            background-color: blue;
+        }
     </style>
 </head>
 <body>
 <div id="container">
-    <div style="background-color: #eeeeee; width: 500px; height: 500px;">
-        <div id="ball" style="position: absolute;width: 5px;height: 5px;background-color: red;border-radius: 5px;"></div>
+    <div id="field" style="background-color: #eeeeee; width: 500px; height: 500px;position: relative;">
+        <div id="ball" style="position: absolute;width: 20px;height: 20px;background-color: red;border-radius: 10px;"></div>
+        <div id="player"></div>
     </div>
 </div>
 <script src="./index.js"></script>
